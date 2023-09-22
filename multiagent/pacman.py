@@ -625,7 +625,7 @@ def readCommand(argv):
 
 def loadAgent(pacman, nographics):
     # Looks through all pythonPath Directories for the right module,
-    pythonPathStr = os.path.expandvars("$PYTHONPATH")
+    pythonPathStr = os.path.expandvars("multiagent/")
     if pythonPathStr.find(';') == -1:
         pythonPathDirs = pythonPathStr.split(':')
     else:
@@ -643,7 +643,7 @@ def loadAgent(pacman, nographics):
             except ImportError:
                 continue
             if pacman in dir(module):
-                if nographics and modulename == 'keyboardAgents.py':
+                if nographics and modulename == 'multiagent/keyboardAgents.py':
                     raise Exception(
                         'Using the keyboard requires graphics (not text display)')
                 return getattr(module, pacman)

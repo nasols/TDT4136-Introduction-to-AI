@@ -203,8 +203,8 @@ def runTest(testName, moduleDict, printTestCase=False, display=None):
     for module in moduleDict:
         setattr(sys.modules[__name__], module, moduleDict[module])
 
-    testDict = testParser.TestParser(testName + ".test").parse()
-    solutionDict = testParser.TestParser(testName + ".solution").parse()
+    testDict = testParser.TestParser("multiagent/"+testName + ".test").parse()
+    solutionDict = testParser.TestParser("multiagent/"+testName + ".solution").parse()
     test_out_file = os.path.join('%s.test_output' % testName)
     testDict['test_out_file'] = test_out_file
     testClass = getattr(projectTestClasses, testDict['class'])
@@ -236,7 +236,7 @@ def getDepends(testParser, testRoot, question):
 # get list of questions to grade
 def getTestSubdirs(testParser, testRoot, questionToGrade):
     problemDict = testParser.TestParser(
-        os.path.join(testRoot, 'CONFIG')).parse()
+        "multiagent/"+os.path.join(testRoot, 'CONFIG')).parse()
     if questionToGrade != None:
         questions = getDepends(testParser, testRoot, questionToGrade)
         if len(questions) > 1:
@@ -346,8 +346,9 @@ if __name__ == '__main__':
         moduleDict[moduleName] = loadModuleFile(
             moduleName, os.path.join(options.codeRoot, cp))
     moduleName = re.match('.*?([^/]*)\.py', options.testCaseCode).group(1)
+    print("HEISANN : ", os.path.join(options.codeRoot, options.testCaseCode))
     moduleDict['projectTestClasses'] = loadModuleFile(
-        moduleName, os.path.join(options.codeRoot, options.testCaseCode))
+        moduleName, "multiagent/"+os.path.join(options.codeRoot, options.testCaseCode))
 
     if options.runTest != None:
         runTest(options.runTest, moduleDict, printTestCase=options.printTestCase,

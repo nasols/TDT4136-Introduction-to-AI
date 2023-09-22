@@ -139,11 +139,11 @@ class Layout:
 
 def getLayout(name, back=2):
     if name.endswith('.lay'):
-        layout = tryToLoad('layouts/' + name)
+        layout = tryToLoad('multiagent/layouts/' + name)
         if layout == None:
             layout = tryToLoad(name)
     else:
-        layout = tryToLoad('layouts/' + name + '.lay')
+        layout = tryToLoad('multiagent/layouts/' + name + '.lay')
         if layout == None:
             layout = tryToLoad(name + '.lay')
     if layout == None and back >= 0:
